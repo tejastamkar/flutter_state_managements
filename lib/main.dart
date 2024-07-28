@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_first_getx_app/screens/home_screen.dart';
-import 'package:my_first_getx_app/utils/utils.dart';
+import 'package:my_first_getx_app/presentation/modules/home/home_screen.dart';
 
 Future<void> main() async {
-  await registerServices();
-  await registerControllers();
   runApp(const MyApp());
 }
 
@@ -23,9 +20,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.quicksandTextTheme()),
       routes: {
-        '/home': (context) => const MyHomePage(),
+        '/': (context) => const HomeScreen(),
       },
-      initialRoute: '/home',
+      initialRoute: '/',
     );
   }
 }
