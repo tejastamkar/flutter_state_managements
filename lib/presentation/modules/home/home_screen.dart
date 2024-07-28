@@ -29,26 +29,39 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.lightBlue,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DiceBody(
-              image: imagesList[selectedImage],
+        body: Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        colors: [
+          Color.fromARGB(255, 45, 2, 236),
+          Color.fromARGB(255, 86, 17, 245),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          DiceBody(
+            image: imagesList[selectedImage],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextButton(
+            onPressed: rollDice,
+            child: const Text(
+              "Roll Dice",
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: rollDice,
-              child: const Text(
-                "Roll Dice",
-                style: TextStyle(fontSize: 20),
-              ),
-            )
-          ],
-        ));
+          )
+        ],
+      ),
+    ));
   }
 }
 
