@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+final randomize = Random();
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedImage = 0;
   void rollDice() {
     setState(() {
-      selectedImage = Random().nextInt(6);
+      selectedImage = randomize.nextInt(6);
     });
   }
 
