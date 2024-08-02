@@ -15,6 +15,14 @@ class QuestionAnswer {
     return questions;
   }
 
+  resetEverything() {
+    currentIndex = 0;
+    userScore = 0;
+    answersOfUser.clear();
+    myQuestions = getQuestions();
+    showAnswerSheet = false;
+  }
+
   onPressSelectOption(selectedAnswer) {
     if (currentIndex < questions.length - 1) {
       currentIndex++;
