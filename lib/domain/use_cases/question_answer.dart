@@ -4,14 +4,10 @@ import 'package:my_first_getx_app/data/model/question_model.dart';
 class QuestionAnswer {
   int currentIndex = 0;
   List answersOfUser = [];
-  List<QuestionModel> myQuestions = [];
   bool showAnswerSheet = false;
-  QuestionAnswer() {
-    myQuestions = getQuestions();
-  }
   int userScore = 0;
 
-  List<QuestionModel> getQuestions() {
+  List<QuestionModel> get myQuestions {
     return questions;
   }
 
@@ -19,7 +15,6 @@ class QuestionAnswer {
     currentIndex = 0;
     userScore = 0;
     answersOfUser.clear();
-    myQuestions = getQuestions();
     showAnswerSheet = false;
   }
 
