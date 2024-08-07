@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_getx_app/routes/app_pages.dart';
+import 'package:my_first_getx_app/data/model/expense_model.dart';
+import 'package:my_first_getx_app/domain/use_cases/expense_controller.dart';
+import 'package:my_first_getx_app/presentation/pages/expense/add_expense_screen.dart';
+import 'package:my_first_getx_app/presentation/pages/home/widget/cart_widget.dart';
+import 'package:my_first_getx_app/presentation/pages/home/widget/expense_list.dart';
 import 'package:my_first_getx_app/utils/extensions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,71 +14,76 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void onPressStartQuiz() {
-    Navigator.of(context).pushNamed(Routes.quiz);
+  ExpenseController expenseController = ExpenseController();
+
+  void openBottomSheet() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
+        ),
+      ),
+      builder: (context) => AddExpenseScreen(
+        expenseController: expenseController,
+        onRefresh: ({required ExpenseModel expense}) {
+          setState(() {});
+          expenseController.addExpense(expense);
+        },
+      ),
+    );
+  }
+
+  void dismissExpense(
+      {required int index, required ExpenseModel selectedExpense}) {
+    expenseController.deleteExpense(selectedExpense.id);
+    setState(() {});
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text("Expense deleted"),
+        action: SnackBarAction(
+            label: "Undo",
+            onPressed: () {
+              expenseController.insertExpense(selectedExpense, index);
+              setState(() {});
+            }),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-                colors: [
-              Color.fromARGB(255, 43, 0, 64),
-              Color.fromARGB(255, 89, 0, 243)
-            ])),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: context.isDesktop
-                      ? context.width / 3
-                      : context.width - 100,
-                  child: Image.asset(
-                    "assets/images/quiz-logo.png",
-                    color: Colors.white.withOpacity(0.5),
-                  ),
-                ),
-                const SizedBox(
-                  height: 80,
-                ),
-                Text(
-                  "Learn Flutter the fun way!",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: context.isDesktop ? 30 : 20),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                    ),
-                    onPressed: onPressStartQuiz,
-                    iconAlignment: IconAlignment.end,
-                    icon: Icon(Icons.arrow_right_alt_sharp,
-                        color: Colors.white, size: context.isDesktop ? 40 : 30),
-                    label: Text(
-                      "Start Quiz",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: context.isDesktop ? 30 : 20),
-                    ))
-              ],
+      appBar: AppBar(
+        title: const Text("Expense Tracker"),
+        centerTitle: context.isDesktop ? false : true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: openBottomSheet,
+        child: const Icon(Icons.add),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Chart(
+            expenses: expenseController.myExpenseList,
+          ),
+          Expanded(
+            child: ExpenseList(
+              expenseController: expenseController,
+              dismissExpense: ({required index, required selectedExpense}) =>
+                  dismissExpense(
+                index: index,
+                selectedExpense: selectedExpense,
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
