@@ -14,7 +14,7 @@ class ExpenseCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(context.isDesktop ? 25 : 20)),
+            borderRadius: BorderRadius.circular(context.isTablet ? 25 : 20)),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: Row(
@@ -28,18 +28,18 @@ class ExpenseCard extends StatelessWidget {
                       child: customPentagon(
                         color: context.colorScheme.primary,
                         childWidget: SizedBox(
-                          width: context.isDesktop ? 50 : 40,
-                          height: context.isDesktop ? 60 : 50,
+                          width: context.isTablet ? 50 : 40,
+                          height: context.isTablet ? 60 : 50,
                           child: Icon(
                             categoryIcons[expenseData.category],
                             color: context.colorScheme.onPrimary,
-                            size: context.isDesktop ? 35 : 30,
+                            size: context.isTablet ? 35 : 30,
                           ),
                         ),
                       ),
                     ),
               SizedBox(
-                width: context.isDesktop ? 20 : 10,
+                width: context.isTablet ? 20 : 10,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,12 +48,12 @@ class ExpenseCard extends StatelessWidget {
                   Text(expenseData.title.toString(),
                       style: TextStyle(
                           color: context.colorScheme.onPrimaryContainer,
-                          fontSize: context.isDesktop ? 16 : 14,
+                          fontSize: context.isTablet ? 16 : 14,
                           fontWeight: FontWeight.bold)),
                   Text(expenseData.formatDate,
                       style: TextStyle(
                           color: context.colorScheme.onPrimaryContainer,
-                          fontSize: context.isDesktop ? 14 : 12,
+                          fontSize: context.isTablet ? 14 : 12,
                           fontWeight: FontWeight.normal)),
                 ],
               ),
@@ -61,7 +61,7 @@ class ExpenseCard extends StatelessWidget {
               Text("₹${expenseData.amount}",
                   style: TextStyle(
                       color: context.colorScheme.onSecondaryContainer,
-                      fontSize: context.isDesktop ? 16 : 14,
+                      fontSize: context.isTablet ? 16 : 14,
                       fontWeight: FontWeight.bold)),
             ],
           ),

@@ -20,6 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
+      useSafeArea: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height,
+      ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
@@ -59,32 +63,60 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense Tracker"),
-        centerTitle: context.isDesktop ? false : true,
+        centerTitle: context.isTablet ? false : true,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: openBottomSheet,
         child: const Icon(Icons.add),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Chart(
-            expenses: expenseController.myExpenseList,
-          ),
-          Expanded(
-            child: ExpenseList(
-              expenseController: expenseController,
-              dismissExpense: ({required index, required selectedExpense}) =>
-                  dismissExpense(
-                index: index,
-                selectedExpense: selectedExpense,
-              ),
+      body: context.isDesktop
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional.center,
+                    child: Chart(
+                      expenses: expenseController.myExpenseList,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ExpenseList(
+                    expenseController: expenseController,
+                    dismissExpense: (
+                            {required index, required selectedExpense}) =>
+                        dismissExpense(
+                      index: index,
+                      selectedExpense: selectedExpense,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Chart(
+                  expenses: expenseController.myExpenseList,
+                ),
+                Expanded(
+                  child: ExpenseList(
+                    expenseController: expenseController,
+                    dismissExpense: (
+                            {required index, required selectedExpense}) =>
+                        dismissExpense(
+                      index: index,
+                      selectedExpense: selectedExpense,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

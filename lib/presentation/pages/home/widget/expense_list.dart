@@ -28,7 +28,7 @@ class _ExpenseListState extends State<ExpenseList> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: context.colorScheme.onPrimaryContainer,
-                    fontSize: context.isDesktop ? 20 : 18)),
+                    fontSize: context.isTablet ? 20 : 18)),
           )
         : ListView.builder(
             physics: const BouncingScrollPhysics(),
