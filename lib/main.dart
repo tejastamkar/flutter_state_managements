@@ -18,23 +18,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expense Tracker',
+      title: 'Meals App',
       theme: ThemeData().copyWith(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.lightBlue, brightness: Brightness.light),
+              seedColor: Colors.yellowAccent.shade700,
+              brightness: Brightness.light),
           cardColor: context.colorScheme.primaryContainer,
           scaffoldBackgroundColor: ColorScheme.fromSeed(
-                  seedColor: Colors.lightBlue, brightness: Brightness.light)
+                  seedColor: Colors.yellowAccent.shade700,
+                  brightness: Brightness.light)
               .surface,
           textTheme: GoogleFonts.latoTextTheme()),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       darkTheme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: ColorScheme.fromSeed(
-                  seedColor: Colors.lightBlue, brightness: Brightness.dark)
+                  seedColor: Colors.yellowAccent.shade700,
+                  brightness: Brightness.dark)
               .surface,
           cardColor: context.colorScheme.primaryContainer,
           colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.lightBlue, brightness: Brightness.dark),
+              seedColor: Colors.yellowAccent.shade700,
+              brightness: Brightness.dark),
           textTheme: GoogleFonts.latoTextTheme()),
       routes: AppPages.routes,
       initialRoute: AppPages.initial,
