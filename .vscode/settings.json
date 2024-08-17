@@ -1,6 +1,7 @@
 {
-    "cSpell.words": [
-        "fastfood",
-        "lato"
-    ]
+  "cSpell.words": [
+    "fastfood",
+    "lato"
+  ],
+  "dart.flutterSdkPath": ".fvm/versions/stable"
 }

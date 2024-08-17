@@ -9,5 +9,6 @@ class AppPages {
 
   static final routes = {
     Routes.home: (context) => const NavbarScreen(),
+    Routes.categories: (context) => const NavbarScreen(),
   };
 }

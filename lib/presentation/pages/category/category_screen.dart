@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_getx_app/constants/data.dart';
+import 'package:my_first_getx_app/domain/use_cases/meals_controller.dart';
 import 'package:my_first_getx_app/presentation/pages/category/widgets/category_card.dart';
 import 'package:my_first_getx_app/utils/extensions.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+class CategoryScreen extends StatelessWidget {
+  final MealsController mealsController;
+  const CategoryScreen({super.key, required this.mealsController});
 
-  @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
-}
-
-class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +25,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return CategoryCard(
+                mealsController: mealsController,
                 categoryData: availableCategories.elementAt(index));
           }),
     );

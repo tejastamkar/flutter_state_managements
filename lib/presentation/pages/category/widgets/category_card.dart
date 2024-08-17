@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_getx_app/constants/data.dart';
 import 'package:my_first_getx_app/data/model/category_model.dart';
+import 'package:my_first_getx_app/domain/use_cases/meals_controller.dart';
 import 'package:my_first_getx_app/presentation/pages/meals/meals.dart';
 import 'package:my_first_getx_app/utils/extensions.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryModel categoryData;
-  const CategoryCard({super.key, required this.categoryData});
+  final MealsController mealsController;
+  const CategoryCard(
+      {super.key, required this.categoryData, required this.mealsController});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,9 @@ class CategoryCard extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => MealsScreen(
                       title: categoryData.title,
-                      onToggleFavorite: (meal) {},
+                      onToggleFavorite: (meal) {
+                        mealsController.toggleFav(meal);
+                      },
                       meals: dummyMeals
                           .where((meal) =>
                               meal.categories.contains(categoryData.id))
